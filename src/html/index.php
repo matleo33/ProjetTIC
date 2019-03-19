@@ -76,33 +76,7 @@
           </tr>
         </thead>
         <tbody>
-          <?php
-            //FOR PRODUCT IN ARRAY DE LES COOKIES
-
-          ?>
-          <td>
-            <?php  
-              echo $PRODUIT['nom'];
-            ?>
-          </td>
-          <td>
-            <?php  
-              echo $PRODUIT['quantite'];
-            ?>
-          </td>
-          <td>
-            <?php  
-              echo $PRODUIT['peremption'];
-            ?>
-          </td>
-          <td>
-            <?php  
-              echo $PRODUIT['action'];
-            ?>
-          </td>
-          <?php 
-            // END FOR
-          ?>
+          
         </tbody>
       </table>
     </div>
