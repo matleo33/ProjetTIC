@@ -14,12 +14,14 @@ function searchProduct(barcode) {
             product["expirationDate"] = "21/04/2019";
             //3272770098090 : product_name_fr = "St Moret", product_name = "St Moret" quantity = "150 g", product_quantity = 150
             addToIngredients(product);
+            writeCookie();
+            display();
         } else {
             //error
         }
 
     });
-};
+}
 
 function operationIngredients(quantityUnit, quantity, exQuantityUnit, exQuantity, operation) {
     let unity = quantityUnit.replace(quantity,'');
@@ -41,7 +43,7 @@ function operationIngredients(quantityUnit, quantity, exQuantityUnit, exQuantity
 
 function addToIngredients(product) {
     let find = ingredients.find(function (prod) {
-        return (prod["name"] = product["name"]) && (prod["expirationDate"] = product["expirationDate"]) && (product["expirationDate"] !== "");
+        return (prod["name"] === product["name"]) && (prod["expirationDate"] === product["expirationDate"]) && (product["expirationDate"] !== "");
     });
     if(find === undefined) {
         ingredients.push(product);
@@ -49,15 +51,19 @@ function addToIngredients(product) {
         let newQuantity = operationIngredients(product["quantityUnit"], product["quantity"], find["quantityUnit"], find["quantity"], '+');
         find["quantityUnit"] = newQuantity["quantityUnit"];
         find["quantity"] = newQuantity["quantity"];
-        console.log(ingredients);
     }
 }
 
 function display() {
     if(ingredients.length !== 0) {
-        let tabIngredients = document.getElementById("tabIngredients");
+        let tabIngredients = document.getElementById("divIngredients");
+
+        if(document.getElementById("tabIngredients") !== null) {
+            tabIngredients.removeChild(document.getElementById("tabIngredients"));
+        }
 
         let table = document.createElement("table");
+        table.id = "tabIngredients";
         tabIngredients.appendChild(table);
 
         let thead = document.createElement("thead");
@@ -89,3 +95,30 @@ function display() {
         })
     }
 }
+
+function writeCookie() {
+    let cookieContent = "";
+    let separator = "#";
+    let separatorProduct = "\\";
+    ingredients.forEach(function (product) {
+        cookieContent += product["name"] + separator + product["quantityUnit"] + separator + product["quantity"] + separator + product["expirationDate"] + separatorProduct;
+    });
+    document.cookie = cookieContent;
+}
+
+window.onload = function readCookie() {
+    let cookie = document.cookie;
+    let product = cookie.split("\\");
+    product.forEach(function (prod) {
+        if(prod !== "") {
+            let detail = prod.split('#');
+            let product = [];
+            product["name"] = detail[0];
+            product["quantityUnit"] = detail[1];
+            product["quantity"] = parseInt(detail[2]);
+            product["expirationDate"] = detail[3];
+            ingredients.push(product);
+        }
+    });
+    display();
+};
