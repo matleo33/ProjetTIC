@@ -2,6 +2,7 @@ let ingredients = [];
 
 function searchProduct(barcode) {
     // Codes barre : '3272770098090', '3302745733029', '3270190207689'
+    //Check le code barre
     let query = 'https://fr.openfoodfacts.org/api/v0/produit/' + barcode + '.json';
 
     $.getJSON(query, function(data) {
@@ -69,7 +70,13 @@ function display() {
 
         if(document.getElementById("tabIngredients") !== null) {
             tabIngredients.removeChild(document.getElementById("tabIngredients"));
+            tabIngredients.removeChild(document.getElementById("titleIngredients"));
         }
+
+        let title = document.createElement("h1");
+        title.id = "titleIngredients";
+        title.innerText = "Mes produits";
+        tabIngredients.appendChild(title);
 
         let table = document.createElement("table");
         table.id = "tabIngredients";
