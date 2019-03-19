@@ -12,6 +12,7 @@ function searchProduct(barcode) {
             product["quantityUnit"] = data.product.quantity; //product_quantity selon l'usage (ou l'api marmiton)
             product["quantity"] = data.product.product_quantity;
             product["expirationDate"] = "21/04/2019";
+            product["barCode"] = barcode;
             //3272770098090 : product_name_fr = "St Moret", product_name = "St Moret" quantity = "150 g", product_quantity = 150
             addToIngredients(product);
             writeCookie();
@@ -23,9 +24,14 @@ function searchProduct(barcode) {
     });
 }
 
+function removeQuantity(quantity) {
+
+}
+
 function operationIngredients(quantityUnit, quantity, exQuantityUnit, exQuantity, operation) {
     let unity = quantityUnit.replace(quantity,'');
     let newQuantity = [];
+    let hasError = false;
     switch (operation) {
         case '+' :
             newQuantity["quantity"] = quantity + exQuantity;
@@ -34,9 +40,12 @@ function operationIngredients(quantityUnit, quantity, exQuantityUnit, exQuantity
             newQuantity["quantity"] = quantity - exQuantity;
             break;
         default:
+            hasError = true;
             break;
     }
-    newQuantity["quantityUnit"] = newQuantity["quantity"].toString() + unity;
+    if(!hasError) {
+        newQuantity["quantityUnit"] = newQuantity["quantity"].toString() + unity;
+    }
     return newQuantity;
 
 }
@@ -67,6 +76,7 @@ function display() {
         tabIngredients.appendChild(table);
 
         let thead = document.createElement("thead");
+        table.classList.add("table");
         table.appendChild(thead);
 
         let trHead = document.createElement("tr");
@@ -77,6 +87,8 @@ function display() {
 
         ingredients.forEach(function (product) {
             let trBody = document.createElement("tr");
+            trBody.dataset.barcode = product["barCode"];
+            trBody.dataset.expirationdate = product["expirationDate"];
             tbody.appendChild(trBody);
 
             let tdName = document.createElement("td");
@@ -88,6 +100,7 @@ function display() {
             trBody.appendChild(tdQuantity);
 
             let tdPeremp = document.createElement("td");
+            tdPeremp.innerText = product["expirationDate"];
             trBody.appendChild(tdPeremp);
 
             let tdAction = document.createElement("td");
@@ -101,12 +114,12 @@ function writeCookie() {
     let separator = "#";
     let separatorProduct = "\\";
     ingredients.forEach(function (product) {
-        cookieContent += product["name"] + separator + product["quantityUnit"] + separator + product["quantity"] + separator + product["expirationDate"] + separatorProduct;
+        cookieContent += product["name"] + separator + product["quantityUnit"] + separator + product["quantity"] + separator + product["expirationDate"] + separator + product["barCode"] + separatorProduct;
     });
     document.cookie = cookieContent;
 }
 
-window.onload = function readCookie() {
+window.onload = function readCookie2() {
     let cookie = document.cookie;
     let product = cookie.split("\\");
     product.forEach(function (prod) {
@@ -117,6 +130,7 @@ window.onload = function readCookie() {
             product["quantityUnit"] = detail[1];
             product["quantity"] = parseInt(detail[2]);
             product["expirationDate"] = detail[3];
+            product["barCode"] = parseInt(detail[4]);
             ingredients.push(product);
         }
     });
