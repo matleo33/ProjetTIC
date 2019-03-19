@@ -551,3 +551,7 @@ ul {
   float: left;
   margin-left: 10px;
 }
+
+body {
+  font-size: small;
+}
