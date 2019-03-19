@@ -21,7 +21,12 @@ body {
   color: #5a5a5a;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
 }
@@ -38,7 +43,8 @@ p {
   margin-top: 10px;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -58,7 +64,7 @@ html, body {
 }
 
 .centered {
-  text-align: center
+  text-align: center;
 }
 
 .mt {
@@ -96,16 +102,18 @@ html, body {
 ::-moz-selection {
   color: #fff;
   text-shadow: none;
-  background: #2B2E31;
+  background: #2b2e31;
 }
 
 ::selection {
   color: #fff;
   text-shadow: none;
-  background: #2B2E31;
+  background: #2b2e31;
 }
 
-*, *:after, *:before {
+*,
+*:after,
+*:before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -117,17 +125,18 @@ a {
   padding: 0;
   margin: 0;
   text-decoration: none;
-  -webkit-transition: background-color .4s linear, color .4s linear;
-  -moz-transition: background-color .4s linear, color .4s linear;
-  -o-transition: background-color .4s linear, color .4s linear;
-  -ms-transition: background-color .4s linear, color .4s linear;
-  transition: background-color .4s linear, color .4s linear;
+  -webkit-transition: background-color 0.4s linear, color 0.4s linear;
+  -moz-transition: background-color 0.4s linear, color 0.4s linear;
+  -o-transition: background-color 0.4s linear, color 0.4s linear;
+  -ms-transition: background-color 0.4s linear, color 0.4s linear;
+  transition: background-color 0.4s linear, color 0.4s linear;
   color: #1abc9c;
 }
 
-a:hover, a:focus {
+a:hover,
+a:focus {
   text-decoration: none;
-  color: #696E74;
+  color: #696e74;
 }
 
 .nopadding {
@@ -169,7 +178,7 @@ input {
 }
 
 .btn-download {
-  background: #FDE3A7;
+  background: #fde3a7;
 }
 
 /*Buttons Configuration */
@@ -194,8 +203,8 @@ input {
 }
 
 .btn-green {
-  background: #03C9A9;
-  color: white
+  background: #03c9a9;
+  color: white;
 }
 
 /* HEADER SECTION */
@@ -248,9 +257,7 @@ input {
   font-size: 40px;
 }
 
-
 @media (max-width: 768px) {
-
   #h .logo {
     top: auto;
     left: auto;
@@ -270,7 +277,6 @@ input {
     font-size: 30px;
   }
 }
-
 
 /* Store Links */
 
@@ -377,7 +383,7 @@ ul {
   padding-top: 90px;
   padding-bottom: 60px;
   min-height: 300px;
-  background: #03C9A9;
+  background: #03c9a9;
   color: white;
 }
 
@@ -410,7 +416,7 @@ ul {
 }
 
 #f a:hover {
-  color: #03C9A9;
+  color: #03c9a9;
 }
 
 /* Contact Form */
@@ -419,7 +425,8 @@ ul {
   padding-top: 20px;
 }
 
-.contact-form input, .contact-form textarea {
+.contact-form input,
+.contact-form textarea {
   padding: 10px 12px;
   border-radius: 0;
   box-shadow: none;
@@ -432,7 +439,7 @@ ul {
 }
 
 .contact-form .form-send button {
-  background: #03C9A9;
+  background: #03c9a9;
   border: 0;
   padding: 12px 40px;
   color: #fff;
@@ -464,7 +471,7 @@ ul {
 }
 
 .contact-form .loading:before {
-  content: "";
+  content: '';
   display: inline-block;
   border-radius: 50%;
   width: 24px;
@@ -538,4 +545,9 @@ ul {
 
 .credits {
   color: #999;
+}
+
+.navbar-toggle.navbar-left {
+  float: left;
+  margin-left: 10px;
 }
