@@ -17,16 +17,13 @@ function searchProduct(barcode) {
             //3272770098090 : product_name_fr = "St Moret", product_name = "St Moret" quantity = "150 g", product_quantity = 150
             addToIngredients(product);
             writeCookie();
-            display();
+            //display(); //A décommenter si l'ajout de produit sur la même page que la consultation
         } else {
             //error
         }
+        document.getElementById("ajoutIngredient").reset();
 
     });
-}
-
-function removeQuantity(quantity) {
-
 }
 
 function operationIngredients(quantityUnit, quantity, exQuantityUnit, exQuantity, operation) {
@@ -48,6 +45,10 @@ function operationIngredients(quantityUnit, quantity, exQuantityUnit, exQuantity
         newQuantity["quantityUnit"] = newQuantity["quantity"].toString() + unity;
     }
     return newQuantity;
+
+}
+
+function removeQuantity(quantity) {
 
 }
 
@@ -89,6 +90,18 @@ function display() {
         let trHead = document.createElement("tr");
         thead.appendChild(trHead);
 
+        let tdProduct = document.createElement("td");
+        tdProduct.innerText = "Produits";
+        trHead.appendChild(tdProduct);
+
+        let tdQuantity = document.createElement("td");
+        tdQuantity.innerText = "Quantité";
+        trHead.appendChild(tdQuantity);
+
+        let tdExpirationDate = document.createElement("td");
+        tdExpirationDate.innerText = "Date de péremption";
+        trHead.appendChild(tdExpirationDate);
+
         let tbody = document.createElement("tbody");
         table.appendChild(tbody);
 
@@ -126,7 +139,7 @@ function writeCookie() {
     document.cookie = cookieContent;
 }
 
-window.onload = function readCookie2() {
+window.onload = function readCookie() {
     let cookie = document.cookie;
     let product = cookie.split("\\");
     product.forEach(function (prod) {
