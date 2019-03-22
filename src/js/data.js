@@ -1,6 +1,6 @@
 let ingredients = [];
 
-function searchProduct(barcode) {
+function searchProduct(barcode, expirationDate) {
     // Codes barre : '3272770098090', '3302745733029', '3270190207689'
     //Check le code barre
     let query = 'https://fr.openfoodfacts.org/api/v0/produit/' + barcode + '.json';
@@ -12,11 +12,9 @@ function searchProduct(barcode) {
             product["name"] = data.product.product_name_fr; //product_name si rien trouvé ?
             product["quantityUnit"] = data.product.quantity; //product_quantity selon l'usage (ou l'api marmiton)
             product["quantity"] = data.product.product_quantity;
-            product["expirationDate"] = "21/04/2019";
+            product["expirationDate"] = changeDateFormat(expirationDate);
             product["barCode"] = barcode;
-            //3272770098090 : product_name_fr = "St Moret", product_name = "St Moret" quantity = "150 g", product_quantity = 150
             addToIngredients(product);
-            writeCookie();
             //display(); //A décommenter si l'ajout de produit sur la même page que la consultation
         } else {
             //error
@@ -26,8 +24,14 @@ function searchProduct(barcode) {
     });
 }
 
-function operationIngredients(quantityUnit, quantity, exQuantityUnit, exQuantity, operation) {
-    let unity = quantityUnit.replace(quantity,'');
+function changeDateFormat(date) {
+    function pad(s) { return (s < 10) ? '0' + s : s; }
+    let d = new Date(date);
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+}
+
+function operationIngredients(quantity, exQuantityUnit, exQuantity, operation) {
+    let unity = exQuantityUnit.replace(exQuantity,'');
     let newQuantity = [];
     let hasError = false;
     switch (operation) {
@@ -48,8 +52,20 @@ function operationIngredients(quantityUnit, quantity, exQuantityUnit, exQuantity
 
 }
 
-function removeQuantity(quantity) {
-
+function removeQuantity(barcode, expirationDate, quantity) {
+    let find = ingredients.find(function (prod) {
+        return ((prod["barcode"] === barcode) && (prod["expirationDate"] === expirationDate));
+    });
+    if(find !== undefined) {
+        let quantity = document.getElementById("quantiteASuppr");
+        let newQuantity = operationIngredients(quantity, find["quantityUnit"], find["quantity"], '-');
+        if(newQuantity["quantity"] <= 0) {
+            ingredients.splice(find);
+        } else {
+            find["quantityUnit"] = newQuantity["quantityUnit"];
+            find["quantity"] = newQuantity["quantity"];
+        }
+    }
 }
 
 function addToIngredients(product) {
@@ -59,10 +75,11 @@ function addToIngredients(product) {
     if(find === undefined) {
         ingredients.push(product);
     } else {
-        let newQuantity = operationIngredients(product["quantityUnit"], product["quantity"], find["quantityUnit"], find["quantity"], '+');
+        let newQuantity = operationIngredients(product["quantity"], find["quantityUnit"], find["quantity"], '+');
         find["quantityUnit"] = newQuantity["quantityUnit"];
         find["quantity"] = newQuantity["quantity"];
     }
+    writeCookie();
 }
 
 function display() {
