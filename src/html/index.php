@@ -57,7 +57,7 @@
   </body>
   <div id="divIngredients" class="container"></div>
   <div>
-    <form enctype="multipart/form-data" action="index.php" method="post">
+    <form enctype="multipart/form-data" action="../php/importCSV.php" method="post">
       <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
       Envoyez ce fichier : <input name="userfile" type="file" accept=".csv"/>
       <input type="submit" value="Envoyer le fichier" />
