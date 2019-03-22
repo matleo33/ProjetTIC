@@ -63,6 +63,10 @@
       <input type="submit" value="Envoyer le fichier" />
     </form>
   </div>
+  <div>
+    Récupérez vos données sous la forme d'un fichier .csv : 
+    <input type="button" onclick="exportCSV()">Ici</button>
+  </div>
 </html>
 
 <?php
