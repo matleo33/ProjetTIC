@@ -58,18 +58,59 @@
   </body>
   <div id="divIngredients" class="container"></div>
   <div>
-    <form enctype="multipart/form-data" action="../php/importCSV.php" method="post">
+    <form enctype="multipart/form-data" id="importForm">
       <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-      Envoyez ce fichier : <input name="userfile" type="file" accept=".csv"/>
+      Envoyez ce fichier : <input name="userfile" type="file" accept=".csv" id="fichier"/>
       <input type="submit" value="Envoyer le fichier" />
     </form>
   </div>
   <div>
     Récupérez vos données sous la forme d'un fichier .csv : 
-    <input type="button" onclick="exportCSV()" value="Ici">
+    <input type="button" onclick="exportCSV(event)" value="Ici">
   </div>
-</html>
+    <div id="fileContents">
 
-<?php
-print_r($_COOKIE);
-?>
+    </div>
+</html>
+<script>
+    document.getElementById("importForm").addEventListener("submit", function(event){
+        event.preventDefault();
+        importCSV();
+    });
+    function importCSV()
+    {
+        var file = document.getElementById("fichier").files[0];
+
+        if (file) {
+            var reader = new FileReader();
+            reader.readAsText(file, "UTF-8");
+            reader.onload = function (evt) {
+                var contenu = evt.target.result;
+                document.getElementById("fileContents").innerHTML = contenu;
+
+                var lignes = contenu.split("\n");
+                //console.log(lignes[0]);
+                //console.log(lignes[0].split(';'));
+                var ligne= [];//contient tout les produits => A SUPPRIMER
+                for(var i =0; i<lignes.length;i++)
+                {
+                     var tmp = lignes[i].split(";");
+                     console.log(tmp);
+                     var product = [];
+                     product['name'] = tmp[0];
+                     product['quantityUnit'] = tmp[1];
+                     product['quantity'] = tmp[2];
+                     product['expirationDate'] = tmp[3];
+                     product['barCode'] = tmp[4];
+                     ligne[i] = product; //A SUPPRIMER
+                     addToIngredients(product);
+                }
+                //alert(ligne[0]);
+            };
+            reader.onerror = function (evt) {
+                document.getElementById("fileContents").innerHTML = "error reading file";
+            }
+        }
+
+    }
+</script>
