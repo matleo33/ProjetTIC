@@ -1,7 +1,7 @@
 function createAndDownloadFile(text) {
   var element = document.createElement('a');
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(text)));
-  element.setAttribute('download', 'donnees');
+  element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(JSON.stringify(text)));
+  element.setAttribute('download', 'donnees.csv');
   element.style.display = 'none';
   document.body.appendChild(element);
   element.click();

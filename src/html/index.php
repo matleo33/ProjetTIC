@@ -11,6 +11,7 @@
       crossorigin="anonymous"
     />
     <script src="../js/data.js"></script>
+      <script src="../js/exportCSV.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -65,7 +66,7 @@
   </div>
   <div>
     Récupérez vos données sous la forme d'un fichier .csv : 
-    <input type="button" onclick="exportCSV()">Ici</button>
+    <input type="button" onclick="exportCSV()" value="Ici">
   </div>
 </html>
 
