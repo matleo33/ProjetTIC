@@ -123,6 +123,10 @@ function display() {
     tdExpirationDate.innerText = 'Date de péremption';
     trHead.appendChild(tdExpirationDate);
 
+    let tdAction = document.createElement('td');
+    tdAction.innerText = 'Action';
+    trHead.appendChild(tdAction);
+
     let tbody = document.createElement('tbody');
     table.appendChild(tbody);
 
