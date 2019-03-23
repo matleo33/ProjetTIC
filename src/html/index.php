@@ -105,7 +105,7 @@
                       product['name'] = tmp[0];
                      }
                      product['quantityUnit'] = tmp[1];
-                     product['quantity'] = tmp[2];
+                     product['quantity'] = parseInt(tmp[2]);
                      product['expirationDate'] = tmp[3];
                      product['barCode'] = tmp[4];
                      ligne[i] = product; //A SUPPRIMER

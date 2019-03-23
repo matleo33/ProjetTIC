@@ -101,6 +101,7 @@ function display() {
 
     let table = document.createElement('table');
     table.id = 'tabIngredients';
+    table.className = 'table-striped';
     tabIngredients.appendChild(table);
 
     let thead = document.createElement('thead');
