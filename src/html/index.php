@@ -86,7 +86,7 @@
             reader.readAsText(file, "UTF-8");
             reader.onload = function (evt) {
                 var contenu = evt.target.result;
-                document.getElementById("fileContents").innerHTML = contenu;
+                //document.getElementById("fileContents").innerHTML = contenu;
 
                 var lignes = contenu.split("\n");
                 //console.log(lignes[0]);
@@ -94,10 +94,10 @@
                 var ligne= [];//contient tout les produits => A SUPPRIMER
                 for(var i =0; i<lignes.length;i++)
                 {
-                     var tmp = lignes[i].split(";");
+                     var tmp = lignes[i].split("#");
                      console.log(tmp);
                      var product = [];
-                     product['name'] = tmp[0];
+                     product['name'] = tmp[0].substr(1);
                      product['quantityUnit'] = tmp[1];
                      product['quantity'] = tmp[2];
                      product['expirationDate'] = tmp[3];
@@ -105,6 +105,7 @@
                      ligne[i] = product; //A SUPPRIMER
                      addToIngredients(product);
                 }
+                display();
                 //alert(ligne[0]);
             };
             reader.onerror = function (evt) {
