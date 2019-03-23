@@ -66,7 +66,7 @@
   </div>
   <div>
     Récupérez vos données sous la forme d'un fichier .csv : 
-    <input type="button" onclick="exportCSV(event)" value="Ici">
+    <input type="button" style="padding:5px 5px;" onclick="exportCSV(event)" value="Ici">
   </div>
     <div id="fileContents">
 
