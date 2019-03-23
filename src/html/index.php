@@ -87,8 +87,9 @@
             reader.onload = function (evt) {
                 var contenu = evt.target.result;
                 //document.getElementById("fileContents").innerHTML = contenu;
-
-                var lignes = contenu.split("\n");
+                console.log("Contenu : " + contenu);
+                var lignes = contenu.split("\\\\");
+                console.log('Lignes : ' + lignes);
                 //console.log(lignes[0]);
                 //console.log(lignes[0].split(';'));
                 var ligne= [];//contient tout les produits => A SUPPRIMER
@@ -96,14 +97,20 @@
                 {
                      var tmp = lignes[i].split("#");
                      console.log(tmp);
-                     var product = [];
-                     product['name'] = tmp[0].substr(1);
+                     if (tmp.length == 5) {
+                      var product = [];
+                     if(tmp[0].startsWith("\"")) {
+                      product['name'] = tmp[0].substr(1);
+                     } else {
+                      product['name'] = tmp[0];
+                     }
                      product['quantityUnit'] = tmp[1];
                      product['quantity'] = tmp[2];
                      product['expirationDate'] = tmp[3];
                      product['barCode'] = tmp[4];
                      ligne[i] = product; //A SUPPRIMER
                      addToIngredients(product);
+                     } 
                 }
                 display();
                 //alert(ligne[0]);
