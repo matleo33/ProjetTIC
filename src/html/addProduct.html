@@ -11,7 +11,7 @@
       crossorigin="anonymous"
     />
     <script src="../js/data.js"></script>
-      <script type='text/javascript' src='https://code.jquery.com/jquery-1.11.0.min.js'></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -39,7 +39,7 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">Consult produits <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="index.php">Consult produits <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="receipes.html">Recettes</a>
@@ -59,7 +59,14 @@
           <input type="date" id="dateDePeremption" name="dateDePeremption" placeholder="Date de péremption" required />
         </div>
         <div>
-            <button type="button" id="ajouterProduit" class="btn btn-primary" onclick="searchProduct(document.getElementById('code').value, document.getElementById('dateDePeremption').value)">Ajouter le produit</button>
+          <button
+            type="button"
+            id="ajouterProduit"
+            class="btn btn-primary"
+            onclick="searchProduct(document.getElementById('code').value, document.getElementById('dateDePeremption').value)"
+          >
+            Ajouter le produit
+          </button>
         </div>
       </form>
     </div>
