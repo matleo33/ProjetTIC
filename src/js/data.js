@@ -178,9 +178,7 @@ function writeCookie() {
 }
 
 window.onload = function readCookie() {
-  let allCookie = document.cookie;
-  let splitedCookie = allCookie.split(';');
-  let cookie = getCookie(splitedCookie, cookieProduits);
+  let cookie = getCookie(cookieProduits);
   if(cookie !== '') {
       let product = cookie.split('\\');
       product.forEach(function(prod) {
@@ -200,7 +198,9 @@ window.onload = function readCookie() {
   }
 };
 
-function getCookie(splitedCookie, cookieName) {
+function getCookie(cookieName) {
+    let allCookies = document.cookie;
+    let splitedCookie = allCookies.split(';');
     let cookie = '';
     splitedCookie.forEach(function (cookieIt) {
         if(cookieIt.includes('=')) {
