@@ -1,4 +1,5 @@
 let ingredients = [];
+const cookieProduits = "cookieProduits";
 
 function searchProduct(barcode, expirationDate) {
   // Codes barre : '3272770098090', '3302745733029', '3270190207689'
@@ -155,9 +156,10 @@ function display() {
 }
 
 function writeCookie() {
-  let cookieContent = '';
+  let cookieContent = cookieProduits;
   let separator = '#';
   let separatorProduct = '\\';
+  cookieContent += '=';
   ingredients.forEach(function(product) {
     cookieContent +=
       product['name'] +
@@ -171,27 +173,48 @@ function writeCookie() {
       product['barCode'] +
       separatorProduct;
   });
+
   document.cookie = cookieContent;
 }
 
 window.onload = function readCookie() {
-  let cookie = document.cookie;
-  let product = cookie.split('\\');
-  product.forEach(function(prod) {
-    if (prod !== '') {
-      let detail = prod.split('#');
-      let product = [];
-      product['name'] = detail[0];
-      product['quantityUnit'] = detail[1];
-      product['quantity'] = parseInt(detail[2]);
-      product['expirationDate'] = detail[3];
-      product['barCode'] = parseInt(detail[4]);
-      ingredients.push(product);
-    }
-  });
-  display();
-  getNotifications();
+  let allCookie = document.cookie;
+  let splitedCookie = allCookie.split(';');
+  let cookie = getCookie(splitedCookie, cookieProduits);
+  if(cookie !== '') {
+      let product = cookie.split('\\');
+      product.forEach(function(prod) {
+          if (prod !== '') {
+              let detail = prod.split('#');
+              let product = [];
+              product['name'] = detail[0];
+              product['quantityUnit'] = detail[1];
+              product['quantity'] = parseInt(detail[2]);
+              product['expirationDate'] = detail[3];
+              product['barCode'] = parseInt(detail[4]);
+              ingredients.push(product);
+          }
+      });
+      display();
+      getNotifications();
+  }
 };
+
+function getCookie(splitedCookie, cookieName) {
+    let cookie = '';
+    splitedCookie.forEach(function (cookieIt) {
+        if(cookieIt.includes('=')) {
+            let cookieContent = cookieIt.split('=');
+            console.log(cookieContent[0]);
+            console.log(cookieName);
+            if (cookieContent[0] === cookieName) {
+                console.log('Ici');
+                cookie = cookieContent[1];
+            }
+        }
+    });
+    return cookie;
+}
 
 function getNotifications() {
   let today = '';
