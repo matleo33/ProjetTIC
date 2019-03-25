@@ -32,7 +32,7 @@
       <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button
         class="navbar-toggler"
         type="button"
@@ -56,7 +56,7 @@
             <a class="nav-link" href="addProduct.html" tabindex="-1">Ajout Produit</a>
           </li>
         </ul>
-        <span class="inline">Notification(s) : </span>
+        <span class="inline" style="color:#fff;">Notification(s) : </span>
       </div>
     </nav>
   </body>

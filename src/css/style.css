@@ -555,3 +555,9 @@ ul {
 body {
   font-size: small;
 }
+
+.navbar-inverse {
+  background-color: #343a40 !important;
+  border-color: #080808 !important;
+  color: #9d9d9d !important;
+}
