@@ -260,6 +260,7 @@ function displayNotifications(expirationDates) {
 
   let dropdownMenu = document.createElement('div');
   dropdownMenu.classList.add('dropdown-menu');
+  dropdownMenu.classList.add('dropdown-menu-right');
   divNotification.appendChild(dropdownMenu);
 
   expirationDates.forEach(function (dates) {
@@ -283,9 +284,6 @@ function displayNotifications(expirationDates) {
 function getNotifications() {
   let expirationDates = getExpirationsDate();
   if(expirationDates !== []) {
-    console.log('not empty');
     displayNotifications(expirationDates);
-  } else {
-    console.log('empty');
   }
 }
