@@ -1,5 +1,5 @@
 let ingredients = [];
-const cookieProduits = "cookieProduits";
+const cookieProduits = 'cookieProduits';
 
 function searchProduct(barcode, expirationDate) {
   // Codes barre : '3272770098090', '3302745733029', '3270190207689'
@@ -179,42 +179,45 @@ function writeCookie() {
 
 window.onload = function readCookie() {
   let cookie = getCookie(cookieProduits);
-  if(cookie !== '') {
-      let product = cookie.split('\\');
-      product.forEach(function(prod) {
-          if (prod !== '') {
-              let detail = prod.split('#');
-              let product = [];
-              product['name'] = detail[0];
-              product['quantityUnit'] = detail[1];
-              product['quantity'] = parseInt(detail[2]);
-              product['expirationDate'] = detail[3];
-              product['barCode'] = parseInt(detail[4]);
-              ingredients.push(product);
-          }
-      });
-      display();
-      getNotifications();
+  if (cookie !== '') {
+    let product = cookie.split('\\');
+    product.forEach(function(prod) {
+      if (prod !== '') {
+        let detail = prod.split('#');
+        let product = [];
+        product['name'] = detail[0];
+        product['quantityUnit'] = detail[1];
+        product['quantity'] = parseInt(detail[2]);
+        product['expirationDate'] = detail[3];
+        product['barCode'] = parseInt(detail[4]);
+        ingredients.push(product);
+      }
+    });
+    display();
+    getNotifications();
   }
 };
 
 function getCookie(cookieName) {
-    let allCookies = document.cookie;
-    let splitedCookie = allCookies.split(';');
-    let cookie = '';
-    splitedCookie.forEach(function (cookieIt) {
-        if(cookieIt.includes('=')) {
-            let cookieContent = cookieIt.split('=');
-            console.log(cookieContent[0]);
-            console.log(cookieName);
-            if (cookieContent[0] === cookieName) {
-                console.log('Ici');
-                cookie = cookieContent[1];
-            }
-        }
-    });
-    return cookie;
+  let allCookies = document.cookie;
+  let splitedCookie = allCookies.split(';');
+  let cookie = '';
+  splitedCookie.forEach(function(cookieIt) {
+    if (cookieIt.includes('=')) {
+      let cookieContent = cookieIt.split('=');
+      console.log(cookieContent[0]);
+      console.log(cookieName);
+      if (cookieContent[0] === cookieName) {
+        console.log('Ici');
+        cookie = cookieContent[1];
+      }
+    }
+  });
+  return cookie;
 }
+String.prototype.replaceAt = function(index, replacement) {
+  return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+};
 
 function getNotifications() {
   let today = '';
@@ -227,8 +230,11 @@ function getNotifications() {
 
   let dateToday = new Date(today);
   ingredients.forEach(function(produit) {
-    console.log(produit['expirationDate']);
-    let dateExpiration = new Date(produit['expirationDate']);
+    let dateToR = produit['expirationDate'];
+    values = dateToR.split('/');
+    dateToR = values[1] + '/' + values[0] + '/' + values[2];
+    console.log(dateToR);
+    let dateExpiration = new Date(dateToR);
     console.log(dateExpiration);
     let timeDiff = Math.abs(dateExpiration.getTime() - dateToday.getTime());
     console.log('Td' + timeDiff);
