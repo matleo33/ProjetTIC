@@ -213,10 +213,10 @@ function getCookie(cookieName) {
   return cookie;
 }
 
-//Faire un tableau du produit et du temps restant
-//Si temps <= 2 jours ajouter au tableau
 //Ajouter au dropdown dynamiquement
-function getNotifications() {
+
+function getExpirationsDate() {
+  let expirationDates = [];
   let today = '';
   let d = new Date();
   today += d.getFullYear();
@@ -233,6 +233,59 @@ function getNotifications() {
     let dateExpiration = new Date(dateToR);
     let timeDiff = Math.abs(dateExpiration.getTime() - dateToday.getTime());
     let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    console.log(diffDays);
+    if(dateExpiration.getTime() < dateToday.getTime()) {
+      diffDays = diffDays * -1;
+    }
+    if(diffDays <= 2) {
+      let product = [];
+      product['ingredient'] = produit['name'];
+      product['expirationDate'] = produit['expirationDate'];
+      product['daysLeft'] = diffDays;
+      expirationDates.push(product);
+    }
   });
+  return expirationDates;
+}
+
+function displayNotifications(expirationDates) {
+  let divNotification = document.getElementById('dropdownNotifications');
+
+  let button = document.createElement('button');
+  button.classList.add('btn');
+  button.classList.add('btn-secondary');
+  button.classList.add('dropdown-toggle');
+  button.setAttribute('type', 'button');
+  button.setAttribute('data-toggle', 'dropdown');
+  divNotification.appendChild(button);
+
+  let dropdownMenu = document.createElement('div');
+  dropdownMenu.classList.add('dropdown-menu');
+  divNotification.appendChild(dropdownMenu);
+
+  expirationDates.forEach(function (dates) {
+    let notif = document.createElement('a');
+    notif.classList.add('dropdown-item');
+    notif.setAttribute('href', '#');
+    let message = '';
+    if(dates['daysLeft'] < 0) {
+      message = dates['ingredient'] + ' périmé depuis ' + Math.abs(dates['daysLeft']) + ' jour(s)';
+    } else if (dates['daysLeft'] === 0) {
+      message = dates['ingredient'] + ' périme aujourd\'hui';
+    } else if (dates['daysLeft'] <= 2) {
+      message = dates['ingredient'] + ' périmé dans ' + dates['daysLeft'] + ' jour(s)';
+    }
+    notif.innerText = message;
+    dropdownMenu.appendChild(notif);
+  })
+
+}
+
+function getNotifications() {
+  let expirationDates = getExpirationsDate();
+  if(expirationDates !== []) {
+    console.log('not empty');
+    displayNotifications(expirationDates);
+  } else {
+    console.log('empty');
+  }
 }

@@ -56,7 +56,18 @@
             <a class="nav-link" href="addProduct.html" tabindex="-1">Ajout Produit</a>
           </li>
         </ul>
-        <span class="inline" style="color:#fff;">Notification(s) : </span>
+          <div class="dropdown" id="dropdownNotifications">
+              <!--
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                  <span class="glyphicon glyphicon-bell"></span>
+              </button>
+              <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Dompteurs</a>
+                  <a class="dropdown-item" href="#">Zoos</a>
+                  <a class="dropdown-item" href="#">Chasseurs</a>
+              </div>
+              -->
+          </div>
       </div>
     </nav>
   </body>
