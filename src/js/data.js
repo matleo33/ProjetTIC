@@ -190,4 +190,26 @@ window.onload = function readCookie() {
     }
   });
   display();
+  getNotifications();
 };
+
+function getNotifications() {
+  let today = '';
+  let d = new Date();
+  today += d.getFullYear();
+  today += '/';
+  today += d.getMonth() + 1;
+  today += '/';
+  today += d.getDate();
+
+  let dateToday = new Date(today);
+  ingredients.forEach(function(produit) {
+    console.log(produit['expirationDate']);
+    let dateExpiration = new Date(produit['expirationDate']);
+    console.log(dateExpiration);
+    let timeDiff = Math.abs(dateExpiration.getTime() - dateToday.getTime());
+    console.log('Td' + timeDiff);
+    let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    console.log(diffDays);
+  });
+}

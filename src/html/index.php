@@ -53,6 +53,7 @@
             <a class="nav-link" href="addProduct.html" tabindex="-1">Ajout Produit</a>
           </li>
         </ul>
+        <span class="inline">Notification(s) : </span>
       </div>
     </nav>
   </body>
