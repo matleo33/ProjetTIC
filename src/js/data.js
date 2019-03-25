@@ -205,20 +205,17 @@ function getCookie(cookieName) {
   splitedCookie.forEach(function(cookieIt) {
     if (cookieIt.includes('=')) {
       let cookieContent = cookieIt.split('=');
-      console.log(cookieContent[0]);
-      console.log(cookieName);
       if (cookieContent[0] === cookieName) {
-        console.log('Ici');
         cookie = cookieContent[1];
       }
     }
   });
   return cookie;
 }
-String.prototype.replaceAt = function(index, replacement) {
-  return this.substr(0, index) + replacement + this.substr(index + replacement.length);
-};
 
+//Faire un tableau du produit et du temps restant
+//Si temps <= 2 jours ajouter au tableau
+//Ajouter au dropdown dynamiquement
 function getNotifications() {
   let today = '';
   let d = new Date();
@@ -231,13 +228,10 @@ function getNotifications() {
   let dateToday = new Date(today);
   ingredients.forEach(function(produit) {
     let dateToR = produit['expirationDate'];
-    values = dateToR.split('/');
+    let values = dateToR.split('/');
     dateToR = values[1] + '/' + values[0] + '/' + values[2];
-    console.log(dateToR);
     let dateExpiration = new Date(dateToR);
-    console.log(dateExpiration);
     let timeDiff = Math.abs(dateExpiration.getTime() - dateToday.getTime());
-    console.log('Td' + timeDiff);
     let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
     console.log(diffDays);
   });
