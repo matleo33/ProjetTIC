@@ -57,6 +57,7 @@
           </li>
         </ul>
           <div class="dropdown" id="dropdownNotifications">
+          <span style="color:silver;margin-right:10px;">Notifications</span>
               <!--
               <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
                   <span class="glyphicon glyphicon-bell"></span>

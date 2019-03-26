@@ -50,6 +50,7 @@
           </li>
         </ul>
         <div class="dropdown" id="dropdownNotifications">
+          <span style="color:silver;margin-right:10px;">Notifications</span>
           <!--
               <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
                   <span class="glyphicon glyphicon-bell"></span>
@@ -64,24 +65,34 @@
       </div>
     </nav>
     <div class="container">
-      <form id="ajoutIngredient">
-        <div>
-          <input type="text" id="code" name="code" placeholder="Code barre" required />
-        </div>
-        <div>
-          <input type="date" id="dateDePeremption" name="dateDePeremption" placeholder="Date de péremption" required />
-        </div>
-        <div>
-          <button
-            type="button"
-            id="ajouterProduit"
-            class="btn btn-primary"
-            onclick="searchProduct(document.getElementById('code').value, document.getElementById('dateDePeremption').value)"
-          >
-            Ajouter le produit
-          </button>
-        </div>
-      </form>
+      <div class="col-md-12" style="margin-top:10px">
+        <form id="ajoutIngredient">
+          <div class="form-group">
+            <label for="code">Code barre : </label>
+            <input type="text" id="code" name="code" placeholder="Code barre" required />
+          </div>
+          <div class="form-group">
+            <label for="dateDePeremption">Date de péremption : </label>
+            <input
+              type="date"
+              id="dateDePeremption"
+              name="dateDePeremption"
+              placeholder="Date de péremption"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <button
+              type="button"
+              id="ajouterProduit"
+              class="btn btn-primary"
+              onclick="searchProduct(document.getElementById('code').value, document.getElementById('dateDePeremption').value)"
+            >
+              Ajouter le produit
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </body>
 </html>
