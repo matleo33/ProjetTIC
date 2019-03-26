@@ -11,7 +11,6 @@
       crossorigin="anonymous"
     />
     <script src="../js/data.js"></script>
-    <script src="../js/exportCSV.js"></script>
     <script src="../js/cookie.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -79,8 +78,8 @@
     </form>
   </div>
   <div>
-    Récupérez vos données sous la forme d'un fichier .csv : 
-    <input type="button" style="padding:5px 5px;" onclick="exportCSV(event)" value="Ici">
+    Récupérez vos données sous la forme d'un fichier .csv :
+    <input type="button" style="padding:5px 5px;" onclick="downloadCSV({ filename: 'ingredients.csv' })" value="Ici">
   </div>
     <div id="fileContents">
 
@@ -124,7 +123,7 @@
                      product['barCode'] = tmp[4];
                      ligne[i] = product; //A SUPPRIMER
                      addToIngredients(product);
-                     } 
+                     }
                 }
                 display();
                 //alert(ligne[0]);
