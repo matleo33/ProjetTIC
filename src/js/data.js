@@ -299,6 +299,9 @@ function getNotifications() {
   }
 }
 
+
+/* ARRAY TO CSV
+SOURCE : https://halistechnology.com/2015/05/28/use-javascript-to-export-your-data-as-csv/*/
 function convertArrayOfObjectsToCSV(args) {
         var result, ctr, keys, columnDelimiter, lineDelimiter, data;
 
