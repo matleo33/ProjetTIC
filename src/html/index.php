@@ -57,8 +57,8 @@
           </li>
         </ul>
           <div class="dropdown" id="dropdownNotifications">
-              <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                  <span style="margin-right:10px;">Notifications </span>
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" id="buttonNotifications">
+                  <span id="notifications">Notifications </span>
               </button>
               <!-- <div class="dropdown-menu">
                   <a class="dropdown-item" href="#">Dompteurs</a>

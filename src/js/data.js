@@ -52,6 +52,7 @@ function operationIngredients(quantity, exQuantityUnit, exQuantity, operation) {
   return newQuantity;
 }
 
+//après-manger : écrire supprimer ingrédients et changerQuantité
 function removeQuantity(barcode, expirationDate, quantity) {
   let find = ingredients.find(function(prod) {
     return prod['barcode'] === barcode && prod['expirationDate'] === expirationDate;
@@ -193,7 +194,7 @@ window.onload = function readCookie() {
         ingredients.push(product);
       }
     });
-    if (document.location.pathname == 'html/index.php') {
+    if (document.location.pathname === 'html/index.php' || document.location.pathname === '/projet/src/html/index.php') { //potentiels problèmes sur la valeur de document.location.pathname
       display();
     }
     getNotifications();
@@ -214,8 +215,6 @@ function getCookie(cookieName) {
   });
   return cookie;
 }
-
-//Ajouter au dropdown dynamiquement
 
 function getExpirationsDate() {
   let expirationDates = [];
@@ -251,6 +250,7 @@ function getExpirationsDate() {
 
 function displayNotifications(expirationDates) {
   let divNotification = document.getElementById('dropdownNotifications');
+  let nbNotifs = 0;
 
   /*let button = document.createElement('button');
   button.classList.add('btn');
@@ -272,12 +272,22 @@ function displayNotifications(expirationDates) {
     let message = '';
     if (dates['daysLeft'] < 0) {
       message = dates['ingredient'] + ' périmé depuis ' + Math.abs(dates['daysLeft']) + ' jour(s)';
+      nbNotifs++;
     } else if (dates['daysLeft'] === 0) {
       message = dates['ingredient'] + " périme aujourd'hui";
+      nbNotifs++;
     } else if (dates['daysLeft'] <= 2) {
       message = dates['ingredient'] + ' périmé dans ' + dates['daysLeft'] + ' jour(s)';
+      nbNotifs++;
     }
     notif.innerText = message;
+    if(nbNotifs !== 0) {
+      let buttonNotifications = document.getElementById("buttonNotifications");
+      let showNotifs = document.createElement('span');
+      showNotifs.classList.add('button_badge');
+      showNotifs.innerText = nbNotifs.toString();
+      buttonNotifications.appendChild(showNotifs);
+    }
     dropdownMenu.appendChild(notif);
   });
 }
