@@ -252,13 +252,13 @@ function getExpirationsDate() {
 function displayNotifications(expirationDates) {
   let divNotification = document.getElementById('dropdownNotifications');
 
-  let button = document.createElement('button');
+  /*let button = document.createElement('button');
   button.classList.add('btn');
   button.classList.add('btn-secondary');
   button.classList.add('dropdown-toggle');
   button.setAttribute('type', 'button');
   button.setAttribute('data-toggle', 'dropdown');
-  divNotification.appendChild(button);
+  divNotification.appendChild(button);*/
 
   let dropdownMenu = document.createElement('div');
   dropdownMenu.classList.add('dropdown-menu');
