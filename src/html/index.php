@@ -70,20 +70,20 @@
     </nav>
   </body>
   <div id="divIngredients" class="container"></div>
-  <div>
+  <div class="col-sm-12">
     <form enctype="multipart/form-data" id="importForm">
       <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-      Envoyez ce fichier : <input name="userfile" type="file" accept=".csv" id="fichier"/>
+      Importez vos données : <input name="userfile" type="file" accept=".csv" id="fichier"/>
       <input type="submit" value="Envoyer le fichier" />
     </form>
   </div>
-  <div>
+  <div class="col-sm-12">
     Récupérez vos données sous la forme d'un fichier .csv :
     <input type="button" style="padding:5px 5px;" onclick="downloadCSV({ filename: 'ingredients.csv' })" value="Ici">
   </div>
-    <div id="fileContents">
+    <div id="fileContents" class="col-sm-12">
 
-    </div>
+    </div>  
 </html>
 <script>
     document.getElementById("importForm").addEventListener("submit", function(event){
