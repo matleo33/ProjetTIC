@@ -42,6 +42,9 @@ function operationIngredients(quantity, exQuantityUnit, exQuantity, operation) {
     case '-':
       newQuantity['quantity'] = quantity - exQuantity;
       break;
+    case '=':
+      newQuantity['quantity'] = quantity;
+      break;
     default:
       hasError = true;
       break;
@@ -67,6 +70,23 @@ function removeQuantity(barcode, expirationDate, quantity) {
       find['quantity'] = newQuantity['quantity'];
     }
   }
+}
+
+function updateQuantity(product, quantity) {
+  let find = ingredients.find(function(prod) {
+    return prod['barcode'] === product['barcode'] && prod['expirationDate'] === product['expirationDate'];
+  });
+  if (find !== undefined) {
+    let newQuantity = operationIngredients(quantity, find['quantityUnit'], find['quantity'], '=');
+    if (newQuantity['quantity'] <= 0) {
+      ingredients.splice(find);
+    } else {
+      find['quantityUnit'] = newQuantity['quantityUnit'];
+      find['quantity'] = newQuantity['quantity'];
+    }
+  }
+  writeCookie();
+  display();
 }
 
 function addToIngredients(product) {
@@ -96,7 +116,6 @@ function supprIngredient(product) {
     );
   });
   if (find !== undefined) {
-    console.log(find);
     ingredients.splice(find, 1);
   }
   writeCookie();
@@ -148,9 +167,7 @@ function display() {
     let tbody = document.createElement('tbody');
     table.appendChild(tbody);
 
-    let cpt = 0;
     ingredients.forEach(function(product) {
-      cpt += 1;
       let trBody = document.createElement('tr');
       trBody.dataset.barcode = product['barCode'];
       trBody.dataset.expirationdate = product['expirationDate'];
@@ -174,13 +191,22 @@ function display() {
 
       buttonSuppr.onclick = function() {
         supprIngredient(product);
-        //Il faut mettre le numero de la ligne pour savoir l'index du tableau que l'on doit supprimer
       };
 
       tdAction.appendChild(buttonSuppr);
       let buttonUpdate = document.createElement('button');
       buttonUpdate.onclick = function() {
-        //Il faut mettre le numéro de la ligne pour savoir l'index du tableau que l'on doit modifier
+        var input = document.createElement('input');
+        var tmp = tdQuantity;
+        input.innerHTML = tdQuantity.innerHTML;
+        input.type = 'number';
+        input.value = product['quantity'];
+        input.min = 0;
+        tdQuantity.parentNode.replaceChild(input, tdQuantity);
+        buttonUpdate.onclick = function() {
+          updateQuantity(product, parseInt(input.value));
+          tdQuantity.innerHTML = tmp.innerHTML;
+        };
       };
       buttonUpdate.innerText = 'Update';
       tdAction.appendChild(buttonUpdate);
