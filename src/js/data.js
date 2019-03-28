@@ -194,9 +194,7 @@ window.onload = function readCookie() {
         ingredients.push(product);
       }
     });
-    if (document.location.pathname === 'html/index.php' || document.location.pathname === '/ProjetTIC/src/html/index.php') { //potentiels problèmes sur la valeur de document.location.pathname
-      display();
-    }
+    display();
     getNotifications();
   }
 };
@@ -281,8 +279,8 @@ function displayNotifications(expirationDates) {
       nbNotifs++;
     }
     notif.innerText = message;
-    if(nbNotifs !== 0) {
-      let buttonNotifications = document.getElementById("buttonNotifications");
+    if (nbNotifs !== 0) {
+      let buttonNotifications = document.getElementById('buttonNotifications');
       let showNotifs = document.createElement('span');
       showNotifs.classList.add('button_badge');
       showNotifs.innerText = nbNotifs.toString();
@@ -299,56 +297,56 @@ function getNotifications() {
   }
 }
 
-
 /* ARRAY TO CSV
 SOURCE : https://halistechnology.com/2015/05/28/use-javascript-to-export-your-data-as-csv/*/
 function convertArrayOfObjectsToCSV(args) {
-        var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+  var result, ctr, keys, columnDelimiter, lineDelimiter, data;
 
-        data = args.data || null;
-        if (data == null || !data.length) {
-            return null;
-        }
+  data = args.data || null;
+  if (data == null || !data.length) {
+    return null;
+  }
 
-        columnDelimiter = args.columnDelimiter || ';';
-        lineDelimiter = args.lineDelimiter || '\n';
+  columnDelimiter = args.columnDelimiter || ';';
+  lineDelimiter = args.lineDelimiter || '\n';
 
-        keys = Object.keys(data[0]);
+  keys = Object.keys(data[0]);
 
-        result = '';
-        result += keys.join(columnDelimiter);
-        result += lineDelimiter;
+  result = '';
+  result += keys.join(columnDelimiter);
+  result += lineDelimiter;
 
-        data.forEach(function(item) {
-            ctr = 0;
-            keys.forEach(function(key) {
-                if (ctr > 0) result += columnDelimiter;
+  data.forEach(function(item) {
+    ctr = 0;
+    keys.forEach(function(key) {
+      if (ctr > 0) result += columnDelimiter;
 
-                result += item[key];
-                ctr++;
-            });
-            result += lineDelimiter;
-        });
+      result += item[key];
+      ctr++;
+    });
+    result += lineDelimiter;
+  });
 
-        return result;
-    }
+  return result;
+}
 
-    function downloadCSV(args) {
-        var data, filename, link;
-        var csv = convertArrayOfObjectsToCSV({
-            data: ingredients
-        });
-        if (csv == null) return;
+function downloadCSV(args) {
+  var data, filename, link;
+  var csv = convertArrayOfObjectsToCSV({
+    data: ingredients,
+  });
+  if (csv == null) return;
+  filename = args.filename || 'export.csv';
 
-        filename = args.filename || 'export.csv';
+  if (!csv.match(/^data:text\/csv/i)) {
+    csv = 'data:text/csv;charset=utf-8,' + csv;
+  }
+  data = encodeURI(csv);
 
-        if (!csv.match(/^data:text\/csv/i)) {
-            csv = 'data:text/csv;charset=utf-8,' + csv;
-        }
-        data = encodeURI(csv);
-
-        link = document.createElement('a');
-        link.setAttribute('href', data);
-        link.setAttribute('download', filename);
-        link.click();
-    }
+  link = document.createElement('a');
+  link.setAttribute('href', data);
+  link.setAttribute('download', filename);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
