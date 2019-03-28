@@ -194,7 +194,7 @@ window.onload = function readCookie() {
         ingredients.push(product);
       }
     });
-    if (document.location.pathname === 'html/index.php' || document.location.pathname === '/projet/src/html/index.php') { //potentiels problèmes sur la valeur de document.location.pathname
+    if (document.location.pathname === 'html/index.php' || document.location.pathname === '/ProjetTIC/src/html/index.php') { //potentiels problèmes sur la valeur de document.location.pathname
       display();
     }
     getNotifications();
