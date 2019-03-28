@@ -212,6 +212,11 @@ function display() {
       tdAction.appendChild(buttonUpdate);
       trBody.appendChild(tdAction);
     });
+  } else {
+    if (document.getElementById('tabIngredients') !== null) {
+      document.getElementById('divIngredients').removeChild(document.getElementById('tabIngredients'));
+      document.getElementById('divIngredients').removeChild(document.getElementById('titleIngredients'));
+    }
   }
 }
 
