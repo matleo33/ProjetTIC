@@ -350,6 +350,15 @@ function displayNotifications(expirationDates) {
     notif.innerText = message;
     if (nbNotifs !== 0) {
       let buttonNotifications = document.getElementById('dropdownNotifications');
+
+      //J'AI RAJOUTE CA AMAURY POUR LE BUG QUE JE TES MONTRE
+      let lastButtonBadge = buttonNotifications.getElementsByClassName('button_badge')[0];
+      if(lastButtonBadge)
+      {
+        buttonNotifications.removeChild(lastButtonBadge);
+      }
+      console.log(lastButtonBadge);
+
       let showNotifs = document.createElement('span');
       showNotifs.classList.add('button_badge');
       showNotifs.innerText = nbNotifs.toString();
