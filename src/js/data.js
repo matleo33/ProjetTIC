@@ -150,8 +150,22 @@ function display() {
       tdPeremp.innerText = product['expirationDate'];
       trBody.appendChild(tdPeremp);
 
-      let tdAction = document.createElement('td');
-      trBody.appendChild(tdAction);
+        let tdAction = document.createElement('td');
+        let buttonSuppr = document.createElement('button');
+        buttonSuppr.innerText = 'SUPPR';
+
+        buttonSuppr.onclick = function () {
+            //Il faut mettre le numero de la ligne pour savoir l'index du tableau que l'on doit supprimer
+        };
+
+        tdAction.appendChild(buttonSuppr);
+        let buttonUpdate = document.createElement('button');
+        buttonUpdate.onclick = function () {
+            //Il faut mettre le numéro de la ligne pour savoir l'index du tableau que l'on doit modifier
+        };
+        buttonUpdate.innerText = 'Update';
+        tdAction.appendChild(buttonUpdate);
+        trBody.appendChild(tdAction);
     });
   }
 }
