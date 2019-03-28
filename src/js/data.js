@@ -280,7 +280,7 @@ function displayNotifications(expirationDates) {
     }
     notif.innerText = message;
     if (nbNotifs !== 0) {
-      let buttonNotifications = document.getElementById('buttonNotifications');
+      let buttonNotifications = document.getElementById('dropdownNotifications');
       let showNotifs = document.createElement('span');
       showNotifs.classList.add('button_badge');
       showNotifs.innerText = nbNotifs.toString();
