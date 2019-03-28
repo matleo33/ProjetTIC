@@ -187,7 +187,9 @@ function display() {
 
       let tdAction = document.createElement('td');
       let buttonSuppr = document.createElement('button');
-      buttonSuppr.innerText = 'SUPPR';
+      buttonSuppr.className="btn btn-primary";
+      buttonSuppr.style.margin = '0px 10px 2px 0px';
+      buttonSuppr.innerText = 'Supprimer';
 
       buttonSuppr.onclick = function() {
         supprIngredient(product);
@@ -195,7 +197,10 @@ function display() {
 
       tdAction.appendChild(buttonSuppr);
       let buttonUpdate = document.createElement('button');
+      buttonUpdate.innerText = 'Modifier';
+      buttonUpdate.className="btn btn-primary";
       buttonUpdate.onclick = function() {
+        buttonUpdate.innerText = 'Valider';
         var input = document.createElement('input');
         var tmp = tdQuantity;
         input.innerHTML = tdQuantity.innerHTML;
@@ -206,9 +211,9 @@ function display() {
         buttonUpdate.onclick = function() {
           updateQuantity(product, parseInt(input.value));
           tdQuantity.innerHTML = tmp.innerHTML;
+          buttonUpdate.innerText = 'Modifier';
         };
       };
-      buttonUpdate.innerText = 'Update';
       tdAction.appendChild(buttonUpdate);
       trBody.appendChild(tdAction);
     });
