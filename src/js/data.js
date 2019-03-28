@@ -87,6 +87,22 @@ function addToIngredients(product) {
   writeCookie();
 }
 
+function supprIngredient(product) {
+  let find = ingredients.find(function(prod) {
+    return (
+      prod['name'] === product['name'] &&
+      prod['expirationDate'] === product['expirationDate'] &&
+      product['expirationDate'] !== ''
+    );
+  });
+  if (find !== undefined) {
+    console.log(find);
+    ingredients.splice(find, 1);
+  }
+  writeCookie();
+  display();
+}
+
 function display() {
   if (ingredients.length !== 0) {
     let tabIngredients = document.getElementById('divIngredients');
@@ -132,7 +148,9 @@ function display() {
     let tbody = document.createElement('tbody');
     table.appendChild(tbody);
 
+    let cpt = 0;
     ingredients.forEach(function(product) {
+      cpt += 1;
       let trBody = document.createElement('tr');
       trBody.dataset.barcode = product['barCode'];
       trBody.dataset.expirationdate = product['expirationDate'];
@@ -150,22 +168,23 @@ function display() {
       tdPeremp.innerText = product['expirationDate'];
       trBody.appendChild(tdPeremp);
 
-        let tdAction = document.createElement('td');
-        let buttonSuppr = document.createElement('button');
-        buttonSuppr.innerText = 'SUPPR';
+      let tdAction = document.createElement('td');
+      let buttonSuppr = document.createElement('button');
+      buttonSuppr.innerText = 'SUPPR';
 
-        buttonSuppr.onclick = function () {
-            //Il faut mettre le numero de la ligne pour savoir l'index du tableau que l'on doit supprimer
-        };
+      buttonSuppr.onclick = function() {
+        supprIngredient(product);
+        //Il faut mettre le numero de la ligne pour savoir l'index du tableau que l'on doit supprimer
+      };
 
-        tdAction.appendChild(buttonSuppr);
-        let buttonUpdate = document.createElement('button');
-        buttonUpdate.onclick = function () {
-            //Il faut mettre le numéro de la ligne pour savoir l'index du tableau que l'on doit modifier
-        };
-        buttonUpdate.innerText = 'Update';
-        tdAction.appendChild(buttonUpdate);
-        trBody.appendChild(tdAction);
+      tdAction.appendChild(buttonSuppr);
+      let buttonUpdate = document.createElement('button');
+      buttonUpdate.onclick = function() {
+        //Il faut mettre le numéro de la ligne pour savoir l'index du tableau que l'on doit modifier
+      };
+      buttonUpdate.innerText = 'Update';
+      tdAction.appendChild(buttonUpdate);
+      trBody.appendChild(tdAction);
     });
   }
 }
