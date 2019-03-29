@@ -15,9 +15,6 @@ function searchProduct(barcode, expirationDate) {
       product['expirationDate'] = changeDateFormat(expirationDate);
       product['barCode'] = barcode;
       addToIngredients(product);
-      //display(); //A décommenter si l'ajout de produit sur la même page que la consultation
-    } else {
-      //error
     }
     document.getElementById('ajoutIngredient').reset();
   });
@@ -55,7 +52,6 @@ function operationIngredients(quantity, exQuantityUnit, exQuantity, operation) {
   return newQuantity;
 }
 
-//après-manger : écrire supprimer ingrédients et changerQuantité
 function removeQuantity(barcode, expirationDate, quantity) {
   let find = ingredients.find(function(prod) {
     return prod['barcode'] === barcode && prod['expirationDate'] === expirationDate;
@@ -321,14 +317,6 @@ function displayNotifications(expirationDates) {
   let divNotification = document.getElementById('dropdownNotifications');
   let nbNotifs = 0;
 
-  /*let button = document.createElement('button');
-  button.classList.add('btn');
-  button.classList.add('btn-secondary');
-  button.classList.add('dropdown-toggle');
-  button.setAttribute('type', 'button');
-  button.setAttribute('data-toggle', 'dropdown');
-  divNotification.appendChild(button);*/
-
   let dropdownMenu = document.createElement('div');
   dropdownMenu.classList.add('dropdown-menu');
   dropdownMenu.classList.add('dropdown-menu-right');
@@ -352,7 +340,6 @@ function displayNotifications(expirationDates) {
     notif.innerText = message;
     let buttonNotifications = document.getElementById('dropdownNotifications');
     if (nbNotifs !== 0) {
-      //J'AI RAJOUTE CA AMAURY POUR LE BUG QUE JE TES MONTRE
       let lastButtonBadge = buttonNotifications.getElementsByClassName('button_badge')[0];
       if (lastButtonBadge) {
         buttonNotifications.removeChild(lastButtonBadge);
