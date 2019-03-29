@@ -49,9 +49,6 @@
             <a class="nav-link" href="#">Consult produits <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="receipes.html">Recettes</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="addProduct.html" tabindex="-1">Ajout Produit</a>
           </li>
         </ul>
@@ -102,15 +99,10 @@
       reader.onload = function(evt) {
         var contenu = evt.target.result;
         //document.getElementById("fileContents").innerHTML = contenu;
-        console.log('Contenu : ' + contenu);
         var lignes = contenu.split('\n');
-        console.log('Lignes : ' + lignes);
-        //console.log(lignes[0]);
-        //console.log(lignes[0].split(';'));
         var ligne = []; //contient tout les produits => A SUPPRIMER
         for (var i = 1; i < lignes.length; i++) {
           var tmp = lignes[i].split(';');
-          console.log(tmp);
           if (tmp.length == 5) {
             var product = [];
             if (tmp[0].startsWith('"')) {

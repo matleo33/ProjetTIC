@@ -369,7 +369,6 @@ function displayNotifications(expirationDates) {
 
 function getNotifications() {
   let expirationDates = getExpirationsDate();
-  console.log(expirationDates);
   if (expirationDates !== []) {
     displayNotifications(expirationDates);
   }
