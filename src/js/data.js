@@ -1,6 +1,12 @@
-let ingredients = [];
-const cookieProduits = 'cookieProduits';
+let ingredients = [];//Liste de tableau de produit
+const cookieProduits = 'cookieProduits';//nom du cookie
 
+/**
+ * Utilise l'api OpenFoodFact pour récupérer les informations du produit correspondant au code barre saisie
+ * Et ajoute le produit à notre liste d'ingrédient avec la fonction addToIngredients
+ * @param barcode
+ * @param expirationDate
+ */
 function searchProduct(barcode, expirationDate) {
   // Codes barre : '3272770098090', '3302745733029', '3270190207689'
   //Check le code barre
@@ -19,7 +25,11 @@ function searchProduct(barcode, expirationDate) {
     document.getElementById('ajoutIngredient').reset();
   });
 }
-
+/**
+ * Converti une date au format français
+ * @param date
+ * @returns {string}
+ */
 function changeDateFormat(date) {
   function pad(s) {
     return s < 10 ? '0' + s : s;
@@ -27,7 +37,14 @@ function changeDateFormat(date) {
   let d = new Date(date);
   return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('/');
 }
-
+/**
+ * Calcule la nouvelle quantité souhaité et retourne les informations
+ * @param quantity
+ * @param exQuantityUnit
+ * @param exQuantity
+ * @param operation
+ * @returns {Array}
+ */
 function operationIngredients(quantity, exQuantityUnit, exQuantity, operation) {
   let unity = exQuantityUnit.replace(exQuantity, '');
   let newQuantity = [];
@@ -51,7 +68,12 @@ function operationIngredients(quantity, exQuantityUnit, exQuantity, operation) {
   }
   return newQuantity;
 }
-
+/**
+ * NON UTILISE
+ * @param barcode
+ * @param expirationDate
+ * @param quantity
+ */
 function removeQuantity(barcode, expirationDate, quantity) {
   let find = ingredients.find(function(prod) {
     return prod['barcode'] === barcode && prod['expirationDate'] === expirationDate;
@@ -67,7 +89,15 @@ function removeQuantity(barcode, expirationDate, quantity) {
     }
   }
 }
-
+/**
+ * Met à jour la quantité du produit passé en paramètre.
+ * Cherche le produit dans notre liste d'ingrédients
+ * Si, il est trouvé, on modifie la quantité.
+ * Si, la quantité entrée est infèrieur à 0, on supprime le produit
+ * On réécrit en même temps le cookie
+ * @param product
+ * @param quantity
+ */
 function updateQuantity(product, quantity) {
   let find = ingredients.find(function(prod) {
     return prod['barcode'] === product['barcode'] && prod['expirationDate'] === product['expirationDate'];
@@ -84,7 +114,12 @@ function updateQuantity(product, quantity) {
   writeCookie();
   display();
 }
-
+/**
+ * Ajouter un produit à notre liste d'ingrédients
+ * Si, un produit avec la même date d'expiration et le même nom existe, on va juste modifier sa quantité.
+ * On modifie le cookie au passage
+ * @param product
+ */
 function addToIngredients(product) {
   let find = ingredients.find(function(prod) {
     return (
@@ -102,7 +137,12 @@ function addToIngredients(product) {
   }
   writeCookie();
 }
-
+/**
+ * Supprime le produit voulu de notre liste d'ingrédients
+ * Update le cookie
+ * Met à jour les notifications indiquant les produits périmées
+ * @param product
+ */
 function supprIngredient(product) {
   let find = ingredients.find(function(prod) {
     return (
@@ -118,7 +158,10 @@ function supprIngredient(product) {
   display();
   getNotifications();
 }
-
+/**
+ * Crée le tableau qui va contenir tout les produits de notre liste d'ingrédients
+ * Les fonctions des boutons permettant de supprimer ou mettre à jour la quantité sont aussi défini dans cette fonction
+ */
 function display() {
   if (ingredients.length !== 0) {
     let tabIngredients = document.getElementById('divIngredients');
@@ -170,6 +213,7 @@ function display() {
     let tbody = document.createElement('tbody');
     table.appendChild(tbody);
 
+    //Parcours de notre liste d'ingrédients pour créer chaque lignes correspondante dans le tableau
     ingredients.forEach(function(product) {
       let trBody = document.createElement('tr');
       trBody.dataset.barcode = product['barCode'];
@@ -194,6 +238,7 @@ function display() {
       buttonSuppr.style.margin = '0px 10px 2px 0px';
       buttonSuppr.innerText = 'Supprimer';
 
+      //fonction permettant de supprimer un produit du tableau
       buttonSuppr.onclick = function() {
         supprIngredient(product);
       };
@@ -202,6 +247,7 @@ function display() {
       let buttonUpdate = document.createElement('button');
       buttonUpdate.innerText = 'Modifier';
       buttonUpdate.className = 'btn btn-primary';
+      //Fonction permettant de modifier et confirmer la modification de la quantité
       buttonUpdate.onclick = function() {
         buttonUpdate.innerText = 'Valider';
         var input = document.createElement('input');
@@ -228,6 +274,9 @@ function display() {
   }
 }
 
+/**
+ * Création et modification du cookie contenant toutes les modifications effectuer lors de l'utilisation de l'application
+ */
 function writeCookie() {
   let cookieContent = cookieProduits;
   let separator = '#';
@@ -249,7 +298,9 @@ function writeCookie() {
 
   document.cookie = cookieContent;
 }
-
+/**
+ * Lis le cookie au chargement de la page pour afficher tout les produits de la dernière utilisation
+ */
 window.onload = function readCookie() {
   let cookie = getCookie(cookieProduits);
   if (cookie !== '') {
@@ -270,7 +321,12 @@ window.onload = function readCookie() {
     getNotifications();
   }
 };
-
+/**
+ * Récupére la chaine se trouvant après le nom du cookie
+ * EXemple : Si le 'produits=pomme,300g' va retourner la chaîne "pomme,300g"
+ * @param cookieName
+ * @returns {string}
+ */
 function getCookie(cookieName) {
   let allCookies = document.cookie;
   let splitedCookie = allCookies.split(';');
@@ -285,7 +341,10 @@ function getCookie(cookieName) {
   });
   return cookie;
 }
-
+/**
+ * Retourne une liste de tableau contenant les informations des produits dont la date d'expirations se termine dans 2 jours ou moins, y compris les jours négatifs
+ * @returns {Array}
+ */
 function getExpirationsDate() {
   let expirationDates = [];
   let today = '';
@@ -317,7 +376,11 @@ function getExpirationsDate() {
   });
   return expirationDates;
 }
-
+/**
+ * Crée le badge rouge d'informations du nombre de produit périmé
+ * Créé le texte indiquant, lors du clique sur le bouton de notification, quels produits vont arriver  à écheance, ainsi que le nombre de jour avant celle-ci.
+ * @param expirationDates
+ */
 function displayNotifications(expirationDates) {
   let divNotification = document.getElementById('dropdownNotifications');
   let nbNotifs = 0;
@@ -358,7 +421,9 @@ function displayNotifications(expirationDates) {
     dropdownMenu.appendChild(notif);
   });
 }
-
+/**
+ * Gestion des notifications des produits périmés
+ */
 function getNotifications() {
   let expirationDates = getExpirationsDate();
   if (expirationDates !== []) {
@@ -405,7 +470,11 @@ function convertArrayOfObjectsToCSV(args) {
 
   return result;
 }
-
+/**
+ * Télécharger la liste d'ingrédient au format CSV pour sauvegarder les données contenues
+ * @param args
+ * SOURCE = https://halistechnology.com/2015/05/28/use-javascript-to-export-your-data-as-csv/
+ */
 function downloadCSV(args) {
   var data, filename, link;
   var csv = convertArrayOfObjectsToCSV({

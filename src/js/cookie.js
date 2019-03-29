@@ -1,3 +1,6 @@
+/**
+ * Gestion du cookie RGPD
+ */
 window.addEventListener("load", function(){
     window.cookieconsent.initialise({
         "palette": {

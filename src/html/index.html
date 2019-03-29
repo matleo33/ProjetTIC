@@ -91,6 +91,12 @@
     event.preventDefault();
     importCSV();
   });
+  /**
+   * Lis le fichier CSV au format texte.
+   * On parse les lignes avec le "\n" qui représente le retour à la ligne
+   * On parse la ligne avec le ";" qui représente le séparateur de colonne d'un CSV
+   * Ensuite, on ajoute les produits à notre tableau d'ingrédients et on met à jour les notifications des produits bientot périmée/deja périmé
+   */
   function importCSV() {
     var file = document.getElementById('fichier').files[0];
 
@@ -99,7 +105,6 @@
       reader.readAsText(file, 'UTF-8');
       reader.onload = function(evt) {
         var contenu = evt.target.result;
-        //document.getElementById("fileContents").innerHTML = contenu;
         var lignes = contenu.split('\n');
         var ligne = []; //contient tout les produits => A SUPPRIMER
         for (var i = 1; i < lignes.length; i++) {
@@ -121,7 +126,6 @@
         }
         display();
         getNotifications();
-        //alert(ligne[0]);
       };
       reader.onerror = function(evt) {
         document.getElementById('fileContents').innerHTML = 'error reading file';
