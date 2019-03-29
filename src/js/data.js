@@ -116,10 +116,11 @@ function supprIngredient(product) {
     );
   });
   if (find !== undefined) {
-    ingredients.splice(find, 1);
+    ingredients.splice(ingredients.indexOf(find), 1);
   }
   writeCookie();
   display();
+  getNotifications();
 }
 
 function display() {
@@ -134,11 +135,12 @@ function display() {
     let title = document.createElement('h1');
     title.id = 'titleIngredients';
     title.innerText = 'Mes produits';
+    title.className = 'centered';
     tabIngredients.appendChild(title);
 
     let table = document.createElement('table');
     table.id = 'tabIngredients';
-    table.className = 'table-striped';
+    table.className = 'table-striped table-bordered';
     tabIngredients.appendChild(table);
 
     let thead = document.createElement('thead');
@@ -187,7 +189,7 @@ function display() {
 
       let tdAction = document.createElement('td');
       let buttonSuppr = document.createElement('button');
-      buttonSuppr.className="btn btn-primary";
+      buttonSuppr.className = 'btn btn-primary';
       buttonSuppr.style.margin = '0px 10px 2px 0px';
       buttonSuppr.innerText = 'Supprimer';
 
@@ -198,7 +200,7 @@ function display() {
       tdAction.appendChild(buttonSuppr);
       let buttonUpdate = document.createElement('button');
       buttonUpdate.innerText = 'Modifier';
-      buttonUpdate.className="btn btn-primary";
+      buttonUpdate.className = 'btn btn-primary';
       buttonUpdate.onclick = function() {
         buttonUpdate.innerText = 'Valider';
         var input = document.createElement('input');
@@ -348,16 +350,13 @@ function displayNotifications(expirationDates) {
       nbNotifs++;
     }
     notif.innerText = message;
+    let buttonNotifications = document.getElementById('dropdownNotifications');
     if (nbNotifs !== 0) {
-      let buttonNotifications = document.getElementById('dropdownNotifications');
-
       //J'AI RAJOUTE CA AMAURY POUR LE BUG QUE JE TES MONTRE
       let lastButtonBadge = buttonNotifications.getElementsByClassName('button_badge')[0];
-      if(lastButtonBadge)
-      {
+      if (lastButtonBadge) {
         buttonNotifications.removeChild(lastButtonBadge);
       }
-      console.log(lastButtonBadge);
 
       let showNotifs = document.createElement('span');
       showNotifs.classList.add('button_badge');
@@ -370,8 +369,16 @@ function displayNotifications(expirationDates) {
 
 function getNotifications() {
   let expirationDates = getExpirationsDate();
+  console.log(expirationDates);
   if (expirationDates !== []) {
     displayNotifications(expirationDates);
+  }
+  if (expirationDates.length === 0) {
+    if (document.getElementById('dropdownNotifications').getElementsByClassName('button_badge')[0] !== null) {
+      document
+        .getElementById('dropdownNotifications')
+        .removeChild(document.getElementById('dropdownNotifications').getElementsByClassName('button_badge')[0]);
+    }
   }
 }
 

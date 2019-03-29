@@ -12,7 +12,7 @@
     />
     <script src="../js/data.js"></script>
     <script src="../js/cookie.js"></script>
-      <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -23,8 +23,12 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
-      <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
-      <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -51,83 +55,84 @@
             <a class="nav-link" href="addProduct.html" tabindex="-1">Ajout Produit</a>
           </li>
         </ul>
-          <div class="dropdown" id="dropdownNotifications">
-              <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" id="buttonNotifications">
-                  <span id="notifications">Notifications </span>
-              </button>
-              <!-- <div class="dropdown-menu">
+        <div class="dropdown" id="dropdownNotifications">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+            id="buttonNotifications"
+          >
+            <span id="notifications">Notifications </span>
+          </button>
+          <!-- <div class="dropdown-menu">
                   <a class="dropdown-item" href="#">Dompteurs</a>
                   <a class="dropdown-item" href="#">Zoos</a>
                   <a class="dropdown-item" href="#">Chasseurs</a>
               </div>
               -->
-          </div>
+        </div>
       </div>
     </nav>
   </body>
   <div id="divIngredients" class="container"></div>
-  <div class="col-sm-12">
+  <div class="col-sm-12 centered">
     <form enctype="multipart/form-data" id="importForm">
       <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-      Importez vos données : <input name="userfile" type="file" accept=".csv" id="fichier"/>
+      Importez vos données : <input name="userfile" type="file" accept=".csv" id="fichier" />
       <input type="submit" value="Envoyer le fichier" />
     </form>
   </div>
-  <div class="col-sm-12">
+  <div class="col-sm-12 centered">
     Récupérez vos données sous la forme d'un fichier .csv :
-    <input type="button" style="padding:5px 5px;" onclick="downloadCSV({ filename: 'ingredients.csv' })" value="Ici">
+    <input type="button" style="padding:5px 5px;" onclick="downloadCSV({ filename: 'ingredients.csv' })" value="Ici" />
   </div>
-    <div id="fileContents" class="col-sm-12">
-
-    </div>
+  <div id="fileContents" class="col-sm-12"></div>
 </html>
 <script>
-    document.getElementById("importForm").addEventListener("submit", function(event){
-        event.preventDefault();
-        importCSV();
-    });
-    function importCSV()
-    {
-        var file = document.getElementById("fichier").files[0];
+  document.getElementById('importForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    importCSV();
+  });
+  function importCSV() {
+    var file = document.getElementById('fichier').files[0];
 
-        if (file) {
-            var reader = new FileReader();
-            reader.readAsText(file, "UTF-8");
-            reader.onload = function (evt) {
-                var contenu = evt.target.result;
-                //document.getElementById("fileContents").innerHTML = contenu;
-                console.log("Contenu : " + contenu);
-                var lignes = contenu.split("\n");
-                console.log('Lignes : ' + lignes);
-                //console.log(lignes[0]);
-                //console.log(lignes[0].split(';'));
-                var ligne= [];//contient tout les produits => A SUPPRIMER
-                for(var i =1; i<lignes.length;i++)
-                {
-                     var tmp = lignes[i].split(";");
-                     console.log(tmp);
-                     if (tmp.length == 5) {
-                      var product = [];
-                     if(tmp[0].startsWith("\"")) {
-                      product['name'] = tmp[0].substr(1);
-                     } else {
-                      product['name'] = tmp[0];
-                     }
-                     product['quantityUnit'] = tmp[1];
-                     product['quantity'] = parseInt(tmp[2]);
-                     product['expirationDate'] = tmp[3];
-                     product['barCode'] = tmp[4];
-                     ligne[i] = product; //A SUPPRIMER
-                     addToIngredients(product);
-                     }
-                }
-                display();
-                //alert(ligne[0]);
-            };
-            reader.onerror = function (evt) {
-                document.getElementById("fileContents").innerHTML = "error reading file";
+    if (file) {
+      var reader = new FileReader();
+      reader.readAsText(file, 'UTF-8');
+      reader.onload = function(evt) {
+        var contenu = evt.target.result;
+        //document.getElementById("fileContents").innerHTML = contenu;
+        console.log('Contenu : ' + contenu);
+        var lignes = contenu.split('\n');
+        console.log('Lignes : ' + lignes);
+        //console.log(lignes[0]);
+        //console.log(lignes[0].split(';'));
+        var ligne = []; //contient tout les produits => A SUPPRIMER
+        for (var i = 1; i < lignes.length; i++) {
+          var tmp = lignes[i].split(';');
+          console.log(tmp);
+          if (tmp.length == 5) {
+            var product = [];
+            if (tmp[0].startsWith('"')) {
+              product['name'] = tmp[0].substr(1);
+            } else {
+              product['name'] = tmp[0];
             }
+            product['quantityUnit'] = tmp[1];
+            product['quantity'] = parseInt(tmp[2]);
+            product['expirationDate'] = tmp[3];
+            product['barCode'] = tmp[4];
+            ligne[i] = product; //A SUPPRIMER
+            addToIngredients(product);
+          }
         }
-
+        display();
+        getNotifications();
+        //alert(ligne[0]);
+      };
+      reader.onerror = function(evt) {
+        document.getElementById('fileContents').innerHTML = 'error reading file';
+      };
     }
+  }
 </script>

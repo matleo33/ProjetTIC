@@ -585,3 +585,7 @@ label {
 #notifications {
   margin-right: 10px;
 }
+
+.centered {
+  text-align: center;
+}
