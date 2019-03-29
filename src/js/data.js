@@ -134,10 +134,15 @@ function display() {
     title.className = 'centered';
     tabIngredients.appendChild(title);
 
+    let divTable = document.createElement('div');
+    divTable.id = 'divTable';
+    divTable.className = 'table-responsive';
+    tabIngredients.appendChild(divTable);
+
     let table = document.createElement('table');
     table.id = 'tabIngredients';
     table.className = 'table-striped table-bordered';
-    tabIngredients.appendChild(table);
+    divTable.appendChild(table);
 
     let thead = document.createElement('thead');
     table.classList.add('table');
